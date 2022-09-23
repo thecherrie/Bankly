@@ -4,12 +4,23 @@ import React, {Component} from 'react';
 interface InputProps {
   placeholder: string;
   verticalPadding: boolean;
+  onChangeText: (text: string) => any;
+  password: boolean;
 }
 
-const BanklyInput = ({placeholder, verticalPadding}: InputProps) => {
+const BanklyInput = ({
+  placeholder,
+  verticalPadding,
+  onChangeText,
+  password = false,
+}: InputProps) => {
   return (
     <View style={{marginVertical: 10}}>
-      <TextInput placeholder={placeholder} style={styles.textInput}></TextInput>
+      <TextInput
+        secureTextEntry={password}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        style={styles.textInput}></TextInput>
     </View>
   );
 };
