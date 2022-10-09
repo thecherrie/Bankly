@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import BanklyButton from '../../components/bankly_button';
 import BanklyText from '../../components/text_components/text';
 import BanklyInput from '../../components/bankly_input';
-import supabase, {registerUser} from '../../supabase/client';
+import supabase, {getSession, registerUser} from '../../supabase/client';
 
 const Signup = ({navigation}) => {
   const [formState, setFormState] = useState({
@@ -29,7 +29,15 @@ const Signup = ({navigation}) => {
       return Alert.alert('Error', 'Passwords do not match.');
     }
 
-    const { user, session } = await registerUser(formState.name, formState.email, formState.password);
+    const {user, session} = await registerUser(
+      formState.name,
+      formState.email,
+      formState.password,
+    );
+
+    if (user) {
+      navigation.navigate('home_container');
+    }
     console.log(user, session);
     setSubmitting(false);
   };

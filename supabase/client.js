@@ -33,4 +33,17 @@ export const registerUser = async (name, email, password) => {
   };
 };
 
+export const signInUser = async (email, password) => {
+  const {user, session, error} = await supabase.auth.signIn({
+    email,
+    password,
+  });
+};
+
+export const getSession = () => supabase.auth.session();
+
+export const getUser = () => supabase.auth.user();
+
+export const signOut = () => supabase.auth.signOut();
+
 export default supabase;
