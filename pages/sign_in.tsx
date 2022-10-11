@@ -1,63 +1,35 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  TextInput,
-  Alert,
-} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Alert} from 'react-native';
 import React, {useState} from 'react';
-import BanklyButton from '../../components/bankly_button';
-import BanklyText from '../../components/text_components/text';
-import BanklyInput from '../../components/bankly_input';
-import supabase, {
-  createUserOnDb,
-  getSession,
-  registerUser,
-} from '../../supabase/client';
+import BanklyInput from '../components/bankly_input';
+import BanklyText from '../components/text_components/text';
+import BanklyButton from '../components/bankly_button';
+import {signInUser} from '../supabase/client';
 
-const Signup = ({navigation}) => {
+const SignIn = ({navigation}) => {
   const [formState, setFormState] = useState({
-    name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
-  const [submitting, setSubmitting] = useState(false);
-
   const handleValidationAndSubmit = async () => {
-    setSubmitting(false);
-    setSubmitting(true);
-    if (formState.password !== formState.confirmPassword) {
-      return Alert.alert('Error', 'Passwords do not match.');
+    const {email, password} = formState;
+    if (email === '' || password === '') {
+      Alert.alert('Error', 'Both fields must be filled.');
+      return;
     }
 
-    const {user, session} = await registerUser(
-      formState.name,
-      formState.email,
-      formState.password,
-    );
-
-    createUserOnDb(user.id, formState.name, 1000);
-
+    const {user, session} = await signInUser(email, password);
     if (user) {
       navigation.navigate('home_container');
     }
-    console.log(user, session);
-    setSubmitting(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.bodyContainer}>
         <BanklyText style={{marginBottom: 30}} size={20} colour="white">
-          Sign up
+          Sign in
         </BanklyText>
-        <BanklyInput
-          onChangeText={(t: string) => setFormState({...formState, name: t})}
-          placeholder="Name"
-        />
         <BanklyInput
           onChangeText={(t: string) => setFormState({...formState, email: t})}
           placeholder="Email"
@@ -68,13 +40,6 @@ const Signup = ({navigation}) => {
             setFormState({...formState, password: t})
           }
           placeholder="Password"
-        />
-        <BanklyInput
-          password
-          onChangeText={(t: string) =>
-            setFormState({...formState, confirmPassword: t})
-          }
-          placeholder="Confirm Password"
         />
       </View>
       <View style={styles.footContainer}>
@@ -108,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup;
+export default SignIn;

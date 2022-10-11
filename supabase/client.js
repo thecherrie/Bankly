@@ -38,6 +38,31 @@ export const signInUser = async (email, password) => {
     email,
     password,
   });
+  if (error) {
+    Alert.alert('Error', error.message);
+    return;
+  }
+  return {
+    user,
+    session,
+  };
+};
+
+export const createUserOnDb = async (userId, name, balance = 10000) => {
+  console.log(userId, name, balance);
+  const {error} = await supabase
+    .from('users')
+    .insert([{id: userId, name, balance: 200}], {returning: 'minimal'});
+  if (!error) {
+    console.info(`Successfully created ${userId}`);
+  }
+
+  if (error) throw new Error(error);
+
+  // const {data} = await supabase
+  // .from('users')
+  // .select()
+  // console.log(data)
 };
 
 export const getSession = () => supabase.auth.session();

@@ -12,10 +12,15 @@ import DashboardTopBar from '../components/dashboard_top_bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import BanklyButton from '../components/bankly_button';
-import { getUser, signOut } from '../supabase/client';
+import {getUser, signOut} from '../supabase/client';
 
 const MyProfile = () => {
   const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    signOut();
+    navigation.navigate('welcome_page');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,7 +38,7 @@ const MyProfile = () => {
         />
       </TouchableOpacity>
       <View style={styles.bodyContainer}>
-        <BanklyButton onPress={() => signOut()} title="Sign out" />
+        <BanklyButton onPress={handleSignOut} title="Sign out" />
       </View>
     </SafeAreaView>
   );

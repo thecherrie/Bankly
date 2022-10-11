@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Dashboard from './dashboard';
 import AntIcons from 'react-native-vector-icons/AntDesign';
@@ -24,7 +24,7 @@ const HomeContainer = () => {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel:false,
+        tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: 'transparent',
           borderTopWidth: 0,

@@ -1,10 +1,17 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import BanklyButton from '../../components/bankly_button';
 import BanklyText from '../../components/text_components/text';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 
-const WelcomePage = ({ navigation }) => {
+const WelcomePage = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.bodyContainer}>
@@ -18,6 +25,17 @@ const WelcomePage = ({ navigation }) => {
           onPress={() => navigation.navigate('sign_up')}
           title="Get Started"
         />
+        <TouchableOpacity onPress={() => navigation.navigate('sign_in')}>
+          <Text
+            style={{
+              marginTop: 15,
+              fontSize: 16,
+              color: 'white',
+              fontWeight: 'bold',
+            }}>
+            Already a user? Sign in
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

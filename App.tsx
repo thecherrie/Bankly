@@ -34,6 +34,7 @@ import Signup from './pages/new_user/sign_up';
 import HomeContainer from './pages/home_container';
 import MyProfile from './pages/my_profile';
 import {getSession, getUser} from './supabase/client';
+import SignIn from './pages/sign_in';
 
 const App = () => {
   const MainStack = createNativeStackNavigator();
@@ -43,13 +44,11 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {!!user || !!session ? (
+      {user || session ? (
         <MainStack.Navigator
           screenOptions={{
             headerShown: false,
           }}>
-          <MainStack.Screen name="welcome_page" component={WelcomePage} />
-          <MainStack.Screen name="sign_up" component={Signup} />
           <MainStack.Screen name="home_container" component={HomeContainer} />
           <MainStack.Screen name="my_profile" component={MyProfile} />
         </MainStack.Navigator>
@@ -58,6 +57,9 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}>
+          <MainStack.Screen name="welcome_page" component={WelcomePage} />
+          <MainStack.Screen name="sign_up" component={Signup} />
+          <MainStack.Screen name="sign_in" component={SignIn} />
           <MainStack.Screen name="home_container" component={HomeContainer} />
           <MainStack.Screen name="my_profile" component={MyProfile} />
         </MainStack.Navigator>
