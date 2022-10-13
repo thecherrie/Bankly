@@ -6,6 +6,7 @@ interface InputProps {
   verticalPadding: boolean;
   onChangeText: (text: string) => any;
   password: boolean;
+  defaultValue?: string;
 }
 
 const BanklyInput = ({
@@ -13,10 +14,12 @@ const BanklyInput = ({
   verticalPadding,
   onChangeText,
   password = false,
+  defaultValue,
 }: InputProps) => {
   return (
     <View style={{marginVertical: 10}}>
       <TextInput
+        defaultValue={defaultValue}
         secureTextEntry={password}
         onChangeText={onChangeText}
         placeholder={placeholder}

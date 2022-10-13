@@ -1,7 +1,6 @@
 import supabase from './client';
 
 export const getUserDetails = async userId => {
-  console.log(userId);
   const {data, error} = await supabase
     .from('users')
     .select()
