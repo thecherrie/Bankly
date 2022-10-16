@@ -1,5 +1,5 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {Component} from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import React from 'react';
 
 interface InputProps {
   placeholder: string;
@@ -7,19 +7,24 @@ interface InputProps {
   onChangeText: (text: string) => any;
   password: boolean;
   defaultValue?: string;
+  value?: string;
+  keyboardType?: string;
 }
 
 const BanklyInput = ({
   placeholder,
-  verticalPadding,
   onChangeText,
   password = false,
   defaultValue,
+  value,
+  keyboardType,
 }: InputProps) => {
   return (
     <View style={{marginVertical: 10}}>
       <TextInput
+        keyboardType={keyboardType}
         defaultValue={defaultValue}
+        value={value}
         secureTextEntry={password}
         onChangeText={onChangeText}
         placeholder={placeholder}

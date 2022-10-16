@@ -8,25 +8,9 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import WelcomePage from './pages/new_user/welcome';
@@ -35,6 +19,7 @@ import HomeContainer from './pages/home_container';
 import MyProfile from './pages/my_profile';
 import {getSession, getUser} from './supabase/client';
 import SignIn from './pages/sign_in';
+import {NativeBaseProvider} from 'native-base';
 
 const App = () => {
   const MainStack = createNativeStackNavigator();
@@ -43,28 +28,30 @@ const App = () => {
   const session = getSession();
 
   return (
-    <NavigationContainer>
-      {user || session ? (
-        <MainStack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <MainStack.Screen name="home_container" component={HomeContainer} />
-          <MainStack.Screen name="my_profile" component={MyProfile} />
-        </MainStack.Navigator>
-      ) : (
-        <MainStack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <MainStack.Screen name="welcome_page" component={WelcomePage} />
-          <MainStack.Screen name="sign_up" component={Signup} />
-          <MainStack.Screen name="sign_in" component={SignIn} />
-          <MainStack.Screen name="home_container" component={HomeContainer} />
-          <MainStack.Screen name="my_profile" component={MyProfile} />
-        </MainStack.Navigator>
-      )}
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        {user || session ? (
+          <MainStack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <MainStack.Screen name="home_container" component={HomeContainer} />
+            <MainStack.Screen name="my_profile" component={MyProfile} />
+          </MainStack.Navigator>
+        ) : (
+          <MainStack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <MainStack.Screen name="welcome_page" component={WelcomePage} />
+            <MainStack.Screen name="sign_up" component={Signup} />
+            <MainStack.Screen name="sign_in" component={SignIn} />
+            <MainStack.Screen name="home_container" component={HomeContainer} />
+            <MainStack.Screen name="my_profile" component={MyProfile} />
+          </MainStack.Navigator>
+        )}
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
 

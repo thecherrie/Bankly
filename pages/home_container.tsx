@@ -1,9 +1,8 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Dashboard from './dashboard';
 import AntIcons from 'react-native-vector-icons/AntDesign';
-import WalletList from './wallet_list';
 import SendMoney from './send_money';
 import WalletContainer from './wallet_container';
 import {getAllUsers, getUserDetails} from '../supabase/userDbFunctions';
@@ -28,7 +27,7 @@ const HomeContainer = () => {
       setAllUsers(_allUsers);
       setUserDetails(_userData);
     })();
-  }, []);
+  }, [userDetails]);
 
   const BottomTab = createBottomTabNavigator();
 

@@ -19,3 +19,14 @@ export const getAllUsers = async userId => {
 
   return data;
 };
+
+export const searchForUser = async name => {
+  const {data, error} = await supabase
+    .from('users')
+    .select()
+    .textSearch('name', name);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};
