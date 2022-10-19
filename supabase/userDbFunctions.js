@@ -24,7 +24,7 @@ export const searchForUser = async name => {
   const {data, error} = await supabase
     .from('users')
     .select()
-    .textSearch('name', name);
+    .like('name', `${name}%`);
 
   if (error) throw new Error(error.message);
 

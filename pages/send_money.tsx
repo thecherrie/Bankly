@@ -15,6 +15,7 @@ import BanklyText from '../components/text_components/text';
 import BanklyButton from '../components/bankly_button';
 import {sendMoney} from '../supabase/monetaryDbFunctions';
 import {useNavigation} from '@react-navigation/native';
+import {Divider} from 'native-base';
 
 const SendMoney = () => {
   const navigation = useNavigation();
@@ -95,13 +96,15 @@ const SendMoney = () => {
                       setSelectedSuggestion(true);
                       setRecipient(suggestion);
                     }}>
-                    <View>
+                    <View style={{marginVertical: 10}}>
                       <BanklyText
+                        colour="darkgrey"
                         key={Math.floor(Math.random() * 999)}
                         size={20}>
                         {suggestion.name}
                       </BanklyText>
                     </View>
+                    <Divider />
                   </TouchableOpacity>
                 );
               })}
